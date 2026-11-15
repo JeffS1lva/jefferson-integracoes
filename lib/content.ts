@@ -98,19 +98,28 @@ export const stack = {
   rail: "Stack",
   title: "Com o que eu trabalho",
   sub: "O que eu uso em produção hoje. Não listo o que só vi em curso.",
-  items: [
-    "TypeScript",
-    "Node.js",
-    "NestJS",
-    "Express",
-    "SAP B1 Service Layer",
-    "SAP HANA",
-    "REST / OData",
-    "Git",
+  groups: [
+    {
+      label: "Backend",
+      items: ["TypeScript", "Node.js", "NestJS", "Express"],
+    },
+    {
+      label: "SAP",
+      items: ["Service Layer", "REST / OData"],
+    },
+    {
+      label: "Banco de dados",
+      items: ["SAP HANA", "MySQL", "PostgreSQL"],
+    },
+    {
+      label: "Frontend",
+      items: ["TypeScript", "shadcn/ui"],
+    },
+    {
+      label: "Ferramentas",
+      items: ["Git"],
+    },
   ],
-  pending: {
-    todo: "+ acrescente: banco, Docker, front, testes",
-  } satisfies Todo,
 };
 
 export const experience = {
@@ -121,23 +130,31 @@ export const experience = {
       when: "abr 2024 — hoje" as Fillable,
       title: "Auxiliar Técnico de Informática" as Fillable,
       org: "Polar Fix · Indústria e Comércio de Produtos Hospitalares · Mauá, SP",
-      bullets: [
-        "Desenvolvimento de aplicação em NestJS integrada à Service Layer do SAP Business One 10 em HANA, com localização Brasil.",
+      summary:
+        "Aplicação em NestJS integrada à Service Layer do SAP Business One 10 em HANA, com localização Brasil.",
+      projects: [
         {
-          todo: "descreva aqui o que a aplicação resolveu, em uma linha",
+          label: "Portal do cliente",
+          body: "Telas de pedidos com dados completos, notas fiscais e XML, boletos e rastreio de pedidos.",
         },
         {
-          todo: "um número, se tiver: horas economizadas, pedidos por dia, usuários",
+          label: "Rastreio com transportadoras",
+          body: "Integração com Pajuçara, Camilo dos Santos e Moviment, entre outras, e com agências dos Correios.",
         },
-        "Suporte e infraestrutura de TI da operação industrial.",
-      ] as Fillable[],
-    },
-    {
-      when: { todo: "período" } satisfies Todo,
-      title: { todo: "outro projeto, pessoal ou freelance" } satisfies Todo,
-      org:
-        "Se tiver algo no GitHub que funciona, vale mais que um curso. Se não tiver, apague este bloco inteiro em lib/content.ts.",
-      bullets: [] as Fillable[],
+        {
+          label: "Portal dos representantes",
+          body: "As informações do cliente, mais inadimplência. Cotações enviadas direto ao SAP via Service Layer. Consultas de venda: o que mais vende e o que deixou de vender.",
+        },
+        {
+          label: "Portal das enfermeiras",
+          body: "Criação de oportunidades de venda, envio de amostras e padronização de produtos.",
+        },
+        {
+          label: "Automação de cadastro",
+          body: "Preenche o módulo de parceiros de negócios do SAP direto via Service Layer. Consulta de CNPJ na Receita Federal, consulta de inscrição estadual e busca automática de CEP. Consulta à SUFRAMA que traz para o cadastro os descontos de impostos a que o cliente tem direito, como ICMS, IPI, COFINS e outros. Plataforma compartilhada entre comercial, diretoria e financeiro.",
+        },
+      ],
+      support: "Suporte e infraestrutura de TI da operação industrial.",
     },
   ],
 };
@@ -160,7 +177,8 @@ export const terms = {
     },
     {
       label: "Entrega",
-      value: "Código no seu repositório, com documentação",
+      value:
+        "Sistema pronto e funcionando na sua hospedagem, com código e documentação entregues. Parte da integração não fica no GitHub, por ser interna à operação.",
       icon: "branch" as const,
     },
     {
@@ -179,26 +197,26 @@ export const contact = {
   channels: [
     {
       label: "E-mail",
-      value: { todo: "seu e-mail pessoal aqui" } satisfies Todo,
-      href: null as string | null,
+      value: "jeffdsilva.29@gmail.com",
+      href: "mailto:jeffdsilva.29@gmail.com",
       icon: "mail" as const,
     },
     {
       label: "WhatsApp",
-      value: { todo: "seu número" } satisfies Todo,
-      href: null as string | null,
+      value: "(11) 91467-4286",
+      href: "https://wa.me/5511914674286",
       icon: "whatsapp" as const,
     },
     {
       label: "LinkedIn",
-      value: { todo: "link do seu perfil" } satisfies Todo,
-      href: null as string | null,
+      value: "linkedin.com/in/jefferson-silva-developer",
+      href: "https://www.linkedin.com/in/jefferson-silva-developer/",
       icon: "linkedin" as const,
     },
     {
       label: "GitHub",
-      value: "github.com/JeffS1lva" as Fillable,
-      href: "https://github.com/JeffS1lva" as string | null,
+      value: "github.com/JeffS1lva",
+      href: "https://github.com/JeffS1lva",
       icon: "github" as const,
     },
   ],

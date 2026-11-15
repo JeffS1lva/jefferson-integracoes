@@ -1,4 +1,3 @@
-import { Checklist } from "@/components/sections/checklist";
 import { Contact } from "@/components/sections/contact";
 import { Experience } from "@/components/sections/experience";
 import { Hero } from "@/components/sections/hero";
@@ -16,9 +15,6 @@ export default function Home() {
       <Experience />
       <Terms />
       <Contact />
-
-      {/* Lembrete interno: apague esta linha antes de divulgar o link. */}
-      <Checklist />
 
       <footer className="mt-14 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-border pt-5 font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground">
         <span>{profile.name}</span>

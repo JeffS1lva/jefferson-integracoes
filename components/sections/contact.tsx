@@ -1,6 +1,11 @@
-import { Link2, Mail, MessageCircle, Terminal } from "lucide-react";
+import {
+  ArrowUpRight,
+  Link2,
+  Mail,
+  MessageCircle,
+  Terminal,
+} from "lucide-react";
 
-import { Field } from "@/components/fillable";
 import { contact } from "@/lib/content";
 
 const icons = {
@@ -12,38 +17,40 @@ const icons = {
 
 export function Contact() {
   return (
-    <div className="mt-16 rounded-md border border-border border-l-[3px] border-l-signal bg-card px-6 py-7">
-      <p className="rail mb-[18px]">{contact.rail}</p>
+    <div className="mt-16 overflow-hidden rounded-md border border-border bg-card">
+      <div className="border-l-[3px] border-signal px-6 pt-7 pb-6 sm:px-7">
+        <p className="rail mb-[18px]">{contact.rail}</p>
 
-      <h2 className="font-display text-[1.45rem] font-semibold tracking-[-0.012em] text-balance">
-        {contact.title}
-      </h2>
-      <p className="mt-2.5 max-w-[58ch] text-muted-foreground">{contact.sub}</p>
+        <h2 className="font-display text-[1.5rem] font-semibold tracking-[-0.015em] text-balance">
+          {contact.title}
+        </h2>
+        <p className="mt-2.5 max-w-[58ch] text-muted-foreground">
+          {contact.sub}
+        </p>
+      </div>
 
-      <ul className="mt-5 flex flex-wrap gap-x-7 gap-y-2.5">
+      <ul className="divide-y divide-border border-t border-border">
         {contact.channels.map((channel) => {
           const Icon = icons[channel.icon];
 
           return (
-            <li key={channel.label} className="flex flex-col gap-[3px]">
-              <span className="flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
-                <Icon className="size-3" aria-hidden="true" />
-                {channel.label}
-              </span>
-
-              {channel.href ? (
-                <a
-                  href={channel.href}
-                  className="w-fit border-b border-signal pb-px text-[0.98rem] font-medium transition-colors hover:text-signal"
-                >
-                  <Field value={channel.value} />
-                </a>
-              ) : (
-                <Field
-                  value={channel.value}
-                  className="text-[0.98rem] font-medium"
+            <li key={channel.label}>
+              <a
+                href={channel.href}
+                className="group flex items-center gap-4 px-6 py-3.5 transition-colors hover:bg-background sm:px-7"
+              >
+                <span className="flex w-[92px] shrink-0 items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                  <Icon className="size-3.5" aria-hidden="true" />
+                  {channel.label}
+                </span>
+                <span className="min-w-0 flex-1 truncate font-medium">
+                  {channel.value}
+                </span>
+                <ArrowUpRight
+                  className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-signal"
+                  aria-hidden="true"
                 />
-              )}
+              </a>
             </li>
           );
         })}

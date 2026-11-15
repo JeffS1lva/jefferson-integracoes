@@ -153,12 +153,24 @@
 }
 
 /* Pulso de dados percorrendo o pipeline. Um movimento só, no herói. */
-@keyframes flow-slide {
-  from {
-    transform: translateX(-120%);
+/*
+  Feixe que atravessa a ligação entre dois cards. Entra e sai com fade,
+  em ease-in-out, para não aparecer nem sumir de forma seca.
+*/
+@keyframes flow-beam {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-  to {
-    transform: translateX(320%);
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(220%);
+    opacity: 0;
   }
 }
 
@@ -166,14 +178,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  width: 40%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--signal),
-    transparent
-  );
-  animation: flow-slide 2.6s linear infinite;
+  width: 60%;
+  border-radius: 999px;
+  background: var(--signal);
+  animation: flow-beam 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   animation-delay: var(--flow-delay, 0s);
 }
 
@@ -182,6 +190,29 @@
     animation: none;
     transform: none;
     width: 100%;
-    opacity: 0.5;
+    opacity: 0.35;
+  }
+}
+
+/* Entrada suave dos blocos ao carregar. Respeita reduced-motion. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
   }
 }
