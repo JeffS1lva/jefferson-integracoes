@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/lib/content";
+import { ThemeProvider } from "@/components/theme-provider";
+import { siteUrl } from "@/lib/site";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -24,14 +26,24 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const title = `${profile.name}, Integrações SAP`;
+
 export const metadata: Metadata = {
-  title: `${profile.name}, Integrações SAP`,
+  metadataBase: siteUrl,
+  title,
   description: profile.lede,
   openGraph: {
-    title: `${profile.name}, Integrações SAP`,
+    title,
     description: profile.lede,
+    url: "/",
+    siteName: profile.name,
     locale: "pt_BR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: profile.lede,
   },
 };
 
@@ -41,11 +53,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable}`}
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

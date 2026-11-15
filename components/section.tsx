@@ -14,7 +14,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section className={cn("mt-16", className)}>
+    <section className={cn("reveal mt-16", className)}>
       <p className="rail mb-[18px]">{rail}</p>
       <h2 className="font-display text-[1.45rem] font-semibold tracking-[-0.012em] text-balance">
         {title}

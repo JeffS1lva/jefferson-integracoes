@@ -134,6 +134,14 @@ export const experience = {
         "Aplicação em NestJS integrada à Service Layer do SAP Business One 10 em HANA, com localização Brasil.",
       projects: [
         {
+          label: "Automação de cadastro",
+          body: "Preenche o módulo de parceiros de negócios do SAP direto via Service Layer. Consulta de CNPJ na Receita Federal, consulta de inscrição estadual e busca automática de CEP. Consulta à SUFRAMA que traz para o cadastro os descontos de impostos a que o cliente tem direito, como ICMS, IPI, COFINS e outros. Plataforma compartilhada entre comercial, diretoria e financeiro.",
+        },
+        {
+          label: "Portal dos representantes",
+          body: "As informações do cliente, mais inadimplência. Cotações enviadas direto ao SAP via Service Layer. Consultas de venda: o que mais vende e o que deixou de vender.",
+        },
+        {
           label: "Portal do cliente",
           body: "Telas de pedidos com dados completos, notas fiscais e XML, boletos e rastreio de pedidos.",
         },
@@ -142,16 +150,8 @@ export const experience = {
           body: "Integração com Pajuçara, Camilo dos Santos e Moviment, entre outras, e com agências dos Correios.",
         },
         {
-          label: "Portal dos representantes",
-          body: "As informações do cliente, mais inadimplência. Cotações enviadas direto ao SAP via Service Layer. Consultas de venda: o que mais vende e o que deixou de vender.",
-        },
-        {
           label: "Portal das enfermeiras",
-          body: "Criação de oportunidades de venda, envio de amostras e padronização de produtos.",
-        },
-        {
-          label: "Automação de cadastro",
-          body: "Preenche o módulo de parceiros de negócios do SAP direto via Service Layer. Consulta de CNPJ na Receita Federal, consulta de inscrição estadual e busca automática de CEP. Consulta à SUFRAMA que traz para o cadastro os descontos de impostos a que o cliente tem direito, como ICMS, IPI, COFINS e outros. Plataforma compartilhada entre comercial, diretoria e financeiro.",
+          body: "Público que padroniza produtos dentro do hospital. Criação de oportunidades de venda e envio de amostras.",
         },
       ],
       support: "Suporte e infraestrutura de TI da operação industrial.",
@@ -254,4 +254,8 @@ export const checklist = {
         "antes de publicar: cláusula de exclusividade ou de dedicação integral existe em parte dos contratos, e isso é assunto para o RH ou um advogado, não para uma página.",
     },
   ],
+};
+
+export const theme = {
+  toggle: "Alternar entre tema claro e escuro",
 };

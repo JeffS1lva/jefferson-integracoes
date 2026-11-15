@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Pipeline } from "@/components/sections/pipeline";
 import { profile } from "@/lib/content";
@@ -5,19 +6,22 @@ import { profile } from "@/lib/content";
 export function Hero() {
   return (
     <header className="pt-16 sm:pt-20">
-      <div className="rise mb-8 flex flex-wrap items-center gap-x-3.5 gap-y-2 font-mono text-[12.5px] tracking-[0.08em] text-muted-foreground">
-        <strong className="font-medium tracking-[0.04em] text-foreground">
-          {profile.name}
-        </strong>
-        <span className="size-1 shrink-0 rounded-full bg-border" />
-        <span>{profile.location}</span>
-        <span className="size-1 shrink-0 rounded-full bg-border" />
-        <a
-          href={profile.githubUrl}
-          className="transition-colors hover:text-signal"
-        >
-          github.com/{profile.github}
-        </a>
+      <div className="rise mb-8 flex items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 font-mono text-[12.5px] tracking-[0.08em] text-muted-foreground">
+          <strong className="font-medium tracking-[0.04em] text-foreground">
+            {profile.name}
+          </strong>
+          <span className="size-1 shrink-0 rounded-full bg-border" />
+          <span>{profile.location}</span>
+          <span className="size-1 shrink-0 rounded-full bg-border" />
+          <a
+            href={profile.githubUrl}
+            className="transition-colors hover:text-signal"
+          >
+            github.com/{profile.github}
+          </a>
+        </div>
+        <ThemeToggle />
       </div>
 
       <h1
