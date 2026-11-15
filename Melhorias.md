@@ -1,130 +1,95 @@
 # Melhorias pendentes
 
-Revisão de 15/11/2026, sobre o commit `0ff4594`.
+Revisão de 15/11/2026, sobre o site no ar em
+`https://jefferson-integracoes.vercel.app`.
 
-**Estado atual:** build passa, typecheck limpo, nenhuma pendência de conteúdo
-em aberto, bloco de checklist removido. A página está publicável.
+## Já verificado e funcionando
 
-As melhorias abaixo estão em ordem de impacto. As do bloco 1 valem antes de
-mandar o link para qualquer pessoa; o resto é acabamento.
+Checado no navegador, não por leitura de código:
 
----
-
-## 1. Antes de divulgar o link
-
-### 1.1 Completar o Open Graph
-
-**Por quê:** este link vai ser colado em mensagem de LinkedIn e WhatsApp para
-consultoria. Hoje o `openGraph` existe em `app/layout.tsx` mas está
-incompleto — falta `metadataBase`, falta `url` e **falta imagem**. Sem imagem,
-o link aparece como texto, sem cartão de preview. Link sem preview perde
-clique, e este link é ferramenta de prospecção.
-
-**O que fazer:**
-
-- Adicionar `metadataBase` em `app/layout.tsx` apontando para o domínio de
-  produção, lendo de variável de ambiente com fallback:
-  ```ts
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://<dominio-da-vercel>"
-  ),
-  ```
-  Na Vercel, `VERCEL_PROJECT_PRODUCTION_URL` também serve de origem.
-- Criar `app/opengraph-image.tsx` usando `ImageResponse` do `next/og`
-  (1200×630). Gera a imagem no build, sem precisar de arquivo binário no
-  repositório. Usar os tokens da paleta: fundo `#0e1218`, texto `#e8ecf2`,
-  destaque `#f0914a`. Conteúdo: nome, a frase de posicionamento e os termos
-  `SAP Business One · Service Layer · Node`.
-- Acrescentar `url` e `siteName` ao bloco `openGraph`.
-- Acrescentar `twitter: { card: "summary_large_image" }`.
-
-**Verificar depois do deploy:** colar o link no WhatsApp e no LinkedIn e
-confirmar que o cartão aparece.
-
-### 1.2 Favicon
-
-**Por quê:** o favicon padrão do Next foi removido e não houve substituto, então
-a aba mostra ícone genérico.
-
-**O que fazer:** criar `app/icon.tsx` com `ImageResponse` (32×32): fundo
-`#0e1218`, a letra `J` em `#f0914a`, fonte pesada. Mesma abordagem do item
-anterior, sem arquivo binário.
-
-### 1.3 Resolver o lockfile duplicado
-
-**Por quê:** `package-lock.json` e `pnpm-lock.yaml` estão os dois versionados.
-A Vercel detecta o gerenciador de pacote pelo lockfile presente; com dois, ela
-pode escolher o que você não testou e instalar versões diferentes.
-
-**O que fazer:** escolher um e remover o outro do versionamento.
-
-```bash
-# o projeto foi montado e verificado com npm
-git rm --cached pnpm-lock.yaml
-echo "pnpm-lock.yaml" >> .gitignore
-```
+- Build e typecheck passam; nenhuma pendência de conteúdo em aberto.
+- Tipografia carregando (Archivo, IBM Plex Sans e Mono).
+- Paleta intacta nos dois temas; alternância de tema gravando `.dark` no html.
+- **Sem overflow horizontal em 375px** (`scrollWidth` igual ao `clientWidth`).
+- Animação por scroll revelando as seções corretamente, com
+  `@supports (animation-timeline: view())` e `prefers-reduced-motion`
+  tratados.
+- `og:image` respondendo 200 em PNG 1200×630, com Twitter card, `og:url`,
+  `siteName` e favicon.
+- `robots.ts` e `sitemap.ts` no lugar.
+- Lockfile duplicado resolvido; projetos reordenados com a automação de
+  cadastro em primeiro; linha das enfermeiras explicada.
 
 ---
 
-## 2. Conteúdo
+## 1. Corrigir o texto da imagem de Open Graph
 
-### 2.1 Explicar o portal das enfermeiras
+**Arquivo:** `app/opengraph-image.tsx`
 
-**Por quê:** quem lê de fora não sabe que, em produtos hospitalares, a
-enfermeira é quem especifica e padroniza o produto. Sem isso, o item parece
-detalhe interno; com isso, mostra que você entendeu o negócio e não só o
-sistema.
+**Problema.** A imagem hoje diz:
 
-**Onde:** `lib/content.ts`, `experience.roles[0].projects`.
+> Integração entre **SAP Business One**
 
-**Sugestão:** acrescentar ao `label` ou ao começo do `body` algo como
-*"o público que especifica e padroniza produto dentro do hospital"*.
+A frase está pendurada. "Entre" pede um segundo termo e ele não aparece, então
+lê como texto cortado e não como espaço proposital — o lado direito fica vazio
+e reforça a impressão. Além disso, "SAP Business One" aparece duas vezes: no
+título e na linha de termos abaixo.
 
-### 2.2 Subir a automação de cadastro para o topo
+**Por que importa.** Essa imagem representa você em toda mensagem que for
+enviada para consultoria. É a primeira coisa que a pessoa vê, antes de clicar.
 
-**Por quê:** entre os cinco projetos listados, a automação de cadastro é a de
-maior diferenciação. Consultar SUFRAMA para apurar benefício de ICMS, IPI e
-COFINS e gravar o parceiro de negócios via Service Layer exige entender regime
-tributário além de código — é raro, e consultoria de B1 tem dificuldade de
-contratar quem faça. Hoje ela está em último na lista, posição de menor
-atenção.
+**Correção preferida:** completar a frase e tirar a repetição.
 
-**Onde:** `lib/content.ts`, reordenar `experience.roles[0].projects`.
+- Título: `Integração entre SAP Business One e aplicações modernas`
+- Linha de termos: `Service Layer · Node · TypeScript`
 
-**Ordem sugerida:** automação de cadastro, portal dos representantes, portal do
-cliente, rastreio com transportadoras, portal das enfermeiras.
+Isso preenche o vazio à direita e deixa o preview igual ao título do site, o
+que dá coerência entre o que a pessoa vê na mensagem e o que encontra ao
+clicar.
+
+**Alternativa**, se preferir título curto: `Integração SAP Business One`, que
+é autossuficiente, mantendo a linha de termos sem repetir o nome.
+
+**Como conferir depois do deploy.** A Vercel versiona a imagem por hash, então
+o cache do WhatsApp pode servir a antiga por um tempo. Abra
+`/opengraph-image` direto no navegador para ver a nova na hora.
 
 ---
 
-## 3. Acabamento
+## 2. Tirar a animação de entrada do herói
 
-### 3.1 Remover código morto
+**Arquivo:** `app/page.tsx` ou `components/sections/hero.tsx`, onde está a
+classe `rise` no `h1` e no parágrafo seguinte.
 
-`components/ui/separator.tsx` não é usado em lugar nenhum. Instalei junto com
-os outros componentes shadcn e o projeto nunca precisou dele.
+**Situação.** A classe `rise` usa `animation-fill-mode: both` com delay
+(`0.08s` no `h1`, `0.16s` no parágrafo). Com `fill-mode: both`, o elemento
+fica no estado inicial — `opacity: 0` — durante o delay. Resultado: o primeiro
+quadro da página tem o título invisível.
+
+Em conexão boa é menos de um segundo e um visitante humano não percebe. Mas é
+o elemento mais importante da página, já está acima da dobra, e serviço que
+renderiza sem esperar pode capturar o quadro vazio.
+
+**Recomendação.** Remover `rise` do `h1` e do parágrafo do herói, mantendo nas
+seções de baixo. Animação de entrada no que a pessoa já está olhando compra
+pouco e custa a primeira impressão.
+
+**Isto é gosto, não defeito.** Os dois lados se defendem. Se preferir manter,
+mantenha — mas saiba que o custo é esse.
+
+---
+
+## 3. Remover código morto
+
+**Arquivo:** `components/ui/separator.tsx`
+
+Continua no projeto e não é usado em lugar nenhum. Veio junto quando instalei
+os componentes shadcn e o projeto nunca precisou dele.
 
 ```bash
 git rm components/ui/separator.tsx
 npm uninstall @radix-ui/react-separator
 ```
-
-### 3.2 `sitemap.ts` e `robots.ts`
-
-Não existem. Criar `app/sitemap.ts` e `app/robots.ts` para o site ser
-indexável. São poucos arquivos e quatro linhas cada.
-
-### 3.3 Alternância de tema
-
-O tema hoje segue a preferência do sistema. A classe `.dark` já está preparada
-em `app/globals.css`, então um botão de alternância é só instalar `next-themes`
-e envolver o layout. Opcional, mas é o tipo de acabamento que passa cuidado.
-
-### 3.4 Transição de entrada por seção
-
-Animação sutil ao entrar na viewport. Respeitar `prefers-reduced-motion`, que
-já está tratado para o pulso do pipeline, e manter o estado de repouso visível
-— nada de seção começando em `opacity: 0` esperando observer, senão a página
-aparece vazia em link compartilhado e em leitor sem JavaScript.
 
 ---
 
@@ -135,14 +100,10 @@ npx tsc --noEmit
 npm run build
 ```
 
-Os dois precisam passar.
-
 ---
 
-## Fora do escopo desta lista
+## Depois destes três
 
-Vale lembrar do que o `CLAUDE.md` do projeto trava, para não gastar tempo
-discutindo com o agente: paleta, tipografia, rota nova, blog, formulário com
-envio e autenticação. Se quiser mudar algum desses, edite o `CLAUDE.md`
-primeiro — ele é a fonte da verdade, e brigar com ele a cada prompt custa mais
-caro que alterá-lo.
+A página está pronta para ser divulgada. O que fica pendente não é mais
+técnico: são as quinze mensagens para consultorias de SAP B1 e software
+houses, que é o que transforma o site em projeto pago.

@@ -42,7 +42,7 @@ export default function OpengraphImage() {
               letterSpacing: -2,
             }}
           >
-            {profile.headline.before}
+            {profile.headline.before.trim()}
           </div>
           <div
             style={{
@@ -56,6 +56,17 @@ export default function OpengraphImage() {
           >
             {profile.headline.emphasis}
           </div>
+          <div
+            style={{
+              display: "flex",
+              fontSize: 76,
+              fontWeight: 700,
+              lineHeight: 1.05,
+              letterSpacing: -2,
+            }}
+          >
+            {profile.headline.after.trim()}
+          </div>
         </div>
 
         <div
@@ -66,7 +77,7 @@ export default function OpengraphImage() {
             letterSpacing: 1,
           }}
         >
-          SAP Business One · Service Layer · Node
+          {profile.ogTerms}
         </div>
       </div>
     ),

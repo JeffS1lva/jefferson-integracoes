@@ -24,19 +24,13 @@ export function Hero() {
         <ThemeToggle />
       </div>
 
-      <h1
-        className="rise mb-6 max-w-[17ch] font-display text-[clamp(2.4rem,7vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.028em] text-balance"
-        style={{ "--d": "0.08s" } as React.CSSProperties}
-      >
+      <h1 className="mb-6 max-w-[17ch] font-display text-[clamp(2.4rem,7vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.028em] text-balance">
         {profile.headline.before}
         <span className="text-signal">{profile.headline.emphasis}</span>
         {profile.headline.after}
       </h1>
 
-      <p
-        className="rise mb-8 max-w-[58ch] text-[1.15rem] leading-relaxed text-muted-foreground"
-        style={{ "--d": "0.16s" } as React.CSSProperties}
-      >
+      <p className="mb-8 max-w-[58ch] text-[1.15rem] leading-relaxed text-muted-foreground">
         {profile.lede}
       </p>
 

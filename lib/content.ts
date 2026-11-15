@@ -29,6 +29,7 @@ export const profile = {
   lede:
     "Desenvolvo as integrações e APIs que ligam o B1 ao resto da operação: portal de cliente, e-commerce, aplicativo interno, rotina automática. Node.js, TypeScript e NestJS sobre a Service Layer.",
   status: "Disponível para projeto pontual",
+  ogTerms: "Service Layer · Node · TypeScript",
 };
 
 export const pipeline = {
