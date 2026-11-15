@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  Paleta: neutros de aço com viés azul (mundo industrial/ERP) + um único
+  sinal em âmbar queimado para estado e destaque.
+  Troque os valores aqui e o site todo acompanha.
+*/
+
+:root {
+  --radius: 0.25rem;
+
+  /* neutros */
+  --background: #f4f5f7;
+  --foreground: #141a24;
+  --card: #ffffff;
+  --card-foreground: #141a24;
+  --popover: #ffffff;
+  --popover-foreground: #141a24;
+  --muted: #e9ebf0;
+  --muted-foreground: #5b6678;
+  --border: #d4d9e2;
+  --input: #d4d9e2;
+
+  /* marca: o sinal âmbar */
+  --primary: #b8560f;
+  --primary-foreground: #ffffff;
+  --signal: #b8560f;
+  --signal-soft: #f6e8dc;
+
+  /* superfícies de interação (convenção shadcn: neutro, não é a marca) */
+  --secondary: #e9ebf0;
+  --secondary-foreground: #141a24;
+  --accent: #e9ebf0;
+  --accent-foreground: #141a24;
+
+  --destructive: #b4252b;
+  --ring: #b8560f;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #0e1218;
+    --foreground: #e8ecf2;
+    --card: #161c25;
+    --card-foreground: #e8ecf2;
+    --popover: #161c25;
+    --popover-foreground: #e8ecf2;
+    --muted: #1d2531;
+    --muted-foreground: #98a3b5;
+    --border: #2a3342;
+    --input: #2a3342;
+
+    --primary: #f0914a;
+    --primary-foreground: #1a1206;
+    --signal: #f0914a;
+    --signal-soft: #2a1d12;
+
+    --secondary: #1d2531;
+    --secondary-foreground: #e8ecf2;
+    --accent: #1d2531;
+    --accent-foreground: #e8ecf2;
+
+    --destructive: #f26d72;
+    --ring: #f0914a;
+
+    color-scheme: dark;
+  }
+}
+
+.dark {
+  --background: #0e1218;
+  --foreground: #e8ecf2;
+  --card: #161c25;
+  --card-foreground: #e8ecf2;
+  --popover: #161c25;
+  --popover-foreground: #e8ecf2;
+  --muted: #1d2531;
+  --muted-foreground: #98a3b5;
+  --border: #2a3342;
+  --input: #2a3342;
+
+  --primary: #f0914a;
+  --primary-foreground: #1a1206;
+  --signal: #f0914a;
+  --signal-soft: #2a1d12;
+
+  --secondary: #1d2531;
+  --secondary-foreground: #e8ecf2;
+  --accent: #1d2531;
+  --accent-foreground: #e8ecf2;
+
+  --destructive: #f26d72;
+  --ring: #f0914a;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+
+  --font-display: var(--font-archivo), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Rótulo em monoespaçada usado como numeração de especificação */
+  .rail {
+    @apply font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground;
+    @apply flex items-center gap-2.5;
+  }
+
+  .rail::after {
+    content: "";
+    @apply h-px flex-1 bg-border;
+  }
+}
+
+/* Pulso de dados percorrendo o pipeline. Um movimento só, no herói. */
+@keyframes flow-slide {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(320%);
+  }
+}
+
+.flow-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--signal),
+    transparent
+  );
+  animation: flow-slide 2.6s linear infinite;
+  animation-delay: var(--flow-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-link::after {
+    animation: none;
+    transform: none;
+    width: 100%;
+    opacity: 0.5;
+  }
+}
